@@ -276,49 +276,92 @@
 
     .hero::before {
       position: absolute;
-      inset: -18%;
+      inset: 0;
       z-index: 0;
       content: "";
       pointer-events: none;
       background:
-        radial-gradient(circle at 12% 28%, rgba(3,193,243,.78) 0 3px, transparent 3.8px),
-        radial-gradient(circle at 30% 48%, rgba(0,73,136,.46) 0 2.5px, transparent 3.2px),
-        radial-gradient(circle at 48% 24%, rgba(0,141,207,.58) 0 3px, transparent 3.7px),
-        radial-gradient(circle at 68% 44%, rgba(3,193,243,.62) 0 3px, transparent 3.7px),
-        radial-gradient(circle at 86% 28%, rgba(0,73,136,.42) 0 2.5px, transparent 3.2px),
-        linear-gradient(36deg, transparent 0 25%, rgba(3,193,243,.3) 25.1% 25.34%, transparent 25.48% 100%),
-        linear-gradient(132deg, transparent 0 37%, rgba(0,73,136,.18) 37.1% 37.32%, transparent 37.45% 100%),
-        linear-gradient(78deg, transparent 0 56%, rgba(0,141,207,.24) 56.1% 56.34%, transparent 56.48% 100%);
-      filter: saturate(1.18);
-      opacity: .82;
+        radial-gradient(ellipse at 20% 22%, rgba(3,193,243,.16), transparent 34%),
+        radial-gradient(ellipse at 78% 18%, rgba(0,141,207,.12), transparent 32%),
+        linear-gradient(120deg, rgba(255,255,255,.86), rgba(255,255,255,.38) 42%, rgba(3,193,243,.1));
+      backdrop-filter: blur(12px);
+      opacity: .76;
       transform-origin: 50% 50%;
-      animation: networkFloat 9s ease-in-out infinite;
+      animation: glassBreath 10s ease-in-out infinite;
     }
 
     .hero::after {
       position: absolute;
-      inset: 0;
+      inset: auto -12% -18% 18%;
       z-index: 0;
-      width: auto;
-      height: auto;
+      width: 54%;
+      height: 42%;
       content: "";
       pointer-events: none;
-      border-radius: 0;
+      border-radius: 50%;
       background:
-        radial-gradient(circle at 16% 22%, rgba(3,193,243,.9) 0 4px, transparent 4.8px),
-        radial-gradient(circle at 34% 42%, rgba(0,73,136,.58) 0 3px, transparent 3.7px),
-        radial-gradient(circle at 52% 30%, rgba(0,141,207,.74) 0 3.5px, transparent 4.2px),
-        radial-gradient(circle at 70% 54%, rgba(3,193,243,.74) 0 3px, transparent 3.7px),
-        radial-gradient(circle at 84% 24%, rgba(0,73,136,.56) 0 3.5px, transparent 4.2px),
-        radial-gradient(circle at 86% 76%, rgba(0,141,207,.56) 0 3px, transparent 3.7px),
-        linear-gradient(28deg, transparent 0 21%, rgba(3,193,243,.36) 21.1% 21.42%, transparent 21.55% 100%),
-        linear-gradient(145deg, transparent 0 33%, rgba(0,73,136,.22) 33.1% 33.38%, transparent 33.5% 100%),
-        linear-gradient(98deg, transparent 0 53%, rgba(0,141,207,.28) 53.1% 53.4%, transparent 53.52% 100%),
-        linear-gradient(62deg, transparent 0 46%, rgba(3,193,243,.2) 46.1% 46.36%, transparent 46.48% 100%);
-      opacity: .78;
+        radial-gradient(ellipse, rgba(3,193,243,.16), transparent 68%);
+      filter: blur(10px);
+      opacity: .65;
       mix-blend-mode: normal;
-      animation: networkFloatAlt 7s ease-in-out infinite;
+      animation: glassBreath 12s ease-in-out infinite reverse;
     }
+
+    .hero-network {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .9;
+      animation: networkFloat 9s ease-in-out infinite;
+    }
+
+    .hero-network svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    .hero-network .connector {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 860;
+      stroke-dashoffset: 860;
+      animation: connectionDraw 5.6s ease-in-out infinite;
+    }
+
+    .hero-network .connector.primary {
+      stroke: url(#heroLinePrimary);
+      stroke-width: 2.7;
+      filter: drop-shadow(0 0 8px rgba(3,193,243,.26));
+    }
+
+    .hero-network .connector.secondary {
+      stroke: url(#heroLineSecondary);
+      stroke-width: 2.1;
+      animation-delay: 1.35s;
+      opacity: .66;
+    }
+
+    .hero-network circle {
+      fill: #fff;
+      stroke: var(--cyan);
+      stroke-width: 2.4;
+      filter: drop-shadow(0 0 8px rgba(3,193,243,.28));
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: nodePulse 2.6s ease-in-out infinite;
+    }
+
+    .hero-network circle:nth-of-type(2) { animation-delay: .22s; }
+    .hero-network circle:nth-of-type(3) { animation-delay: .44s; }
+    .hero-network circle:nth-of-type(4) { animation-delay: .66s; }
+    .hero-network circle:nth-of-type(5) { animation-delay: .88s; }
+    .hero-network circle:nth-of-type(6) { animation-delay: 1.1s; }
+    .hero-network circle:nth-of-type(7) { animation-delay: 1.32s; }
+    .hero-network circle:nth-of-type(8) { animation-delay: 1.54s; }
 
     .phone-zone {
       position: relative;
@@ -1745,12 +1788,11 @@
       z-index: 9999;
       display: grid;
       place-items: center;
-      color: #fff;
+      color: var(--navy);
       background:
-        radial-gradient(circle at 50% 50%, rgba(3, 193, 243, .26), transparent 16%),
-        radial-gradient(circle at 45% 47%, rgba(0, 141, 207, .42), transparent 24%),
-        radial-gradient(circle at 55% 54%, rgba(0, 73, 136, .44), transparent 34%),
-        #020a16;
+        radial-gradient(circle at 50% 44%, rgba(3,193,243,.18), transparent 20%),
+        radial-gradient(ellipse at 50% 55%, rgba(0,141,207,.12), transparent 38%),
+        #fff;
       transition: opacity .6s ease, visibility .6s ease;
     }
 
@@ -1772,19 +1814,25 @@
     .galaxy-loader::before,
     .galaxy-loader::after {
       position: absolute;
-      inset: 16%;
+      inset: 13%;
       content: "";
       border-radius: 50%;
+      border: 1px solid rgba(3,193,243,.22);
       background:
-        conic-gradient(from 90deg, transparent, rgba(3, 193, 243, .85), transparent 36%, rgba(255,255,255,.72), transparent 70%, rgba(0, 141, 207, .78), transparent);
-      filter: blur(2px);
+        radial-gradient(circle at 18% 38%, rgba(3,193,243,.9) 0 5px, transparent 6px),
+        radial-gradient(circle at 72% 28%, rgba(0,73,136,.58) 0 4px, transparent 5px),
+        radial-gradient(circle at 82% 72%, rgba(0,141,207,.58) 0 4px, transparent 5px),
+        linear-gradient(34deg, transparent 0 38%, rgba(3,193,243,.26) 38.1% 38.5%, transparent 38.7%),
+        linear-gradient(128deg, transparent 0 52%, rgba(0,73,136,.18) 52.1% 52.42%, transparent 52.6%);
+      filter: drop-shadow(0 18px 40px rgba(0,73,136,.1));
       animation: galaxySpin 2.8s linear infinite;
     }
 
     .galaxy-loader::after {
       inset: 27%;
-      opacity: .7;
-      animation-duration: 1.8s;
+      opacity: .74;
+      border-color: rgba(0,141,207,.18);
+      animation-duration: 4.2s;
       animation-direction: reverse;
     }
 
@@ -1799,7 +1847,7 @@
       border: 1px solid rgba(255,255,255,.86);
       border-radius: 24px;
       background: rgba(255,255,255,.96);
-      box-shadow: 0 0 42px rgba(3, 193, 243, .55), 0 22px 70px rgba(0, 73, 136, .42);
+      box-shadow: 0 20px 60px rgba(0, 73, 136, .14), 0 0 0 8px rgba(3,193,243,.06);
       animation: preloaderPulse 1.8s ease-in-out infinite;
     }
 
@@ -1813,7 +1861,7 @@
       position: absolute;
       bottom: 42px;
       margin: 0;
-      color: rgba(255,255,255,.82);
+      color: var(--navy);
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 900;
@@ -1824,7 +1872,7 @@
     .galaxy-loader span {
       position: absolute;
       bottom: 14px;
-      color: rgba(255,255,255,.66);
+      color: var(--muted);
       font-family: var(--body);
       font-size: 12px;
       font-weight: 800;
@@ -2285,6 +2333,43 @@
     @keyframes ambientDrift {
       0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg) scale(1); }
       50% { transform: translate3d(32px, -24px, 0) rotate(10deg) scale(1.08); }
+    }
+
+    @keyframes glassBreath {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: .54;
+      }
+      50% {
+        transform: translate3d(18px, -10px, 0) scale(1.04);
+        opacity: .82;
+      }
+    }
+
+    @keyframes connectionDraw {
+      0% {
+        stroke-dashoffset: 860;
+        opacity: .28;
+      }
+      42%, 62% {
+        stroke-dashoffset: 0;
+        opacity: .95;
+      }
+      100% {
+        stroke-dashoffset: -860;
+        opacity: .28;
+      }
+    }
+
+    @keyframes nodePulse {
+      0%, 100% {
+        r: 5;
+        opacity: .72;
+      }
+      50% {
+        r: 7;
+        opacity: 1;
+      }
     }
 
     @keyframes ellipseFloat {
@@ -3131,6 +3216,9 @@
       .app-screen,
       .hero::before,
       .hero::after,
+      .hero-network,
+      .hero-network .connector,
+      .hero-network circle,
       .screen-tabs span,
       .loan-row,
       .screen-metric,
@@ -3194,6 +3282,32 @@
 
     <main id="top">
       <section class="hero">
+        <div class="hero-network" aria-hidden="true">
+          <svg viewBox="0 0 1200 720" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="heroLinePrimary" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#03c1f3" stop-opacity=".12"/>
+                <stop offset="46%" stop-color="#03c1f3" stop-opacity=".72"/>
+                <stop offset="100%" stop-color="#004988" stop-opacity=".18"/>
+              </linearGradient>
+              <linearGradient id="heroLineSecondary" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#004988" stop-opacity=".1"/>
+                <stop offset="52%" stop-color="#008dcf" stop-opacity=".5"/>
+                <stop offset="100%" stop-color="#03c1f3" stop-opacity=".16"/>
+              </linearGradient>
+            </defs>
+            <path class="connector primary" d="M28 382 C170 286 268 304 370 398 S548 594 690 438 S842 282 978 350 S1102 512 1174 450"/>
+            <path class="connector secondary" d="M18 632 C154 548 282 632 382 528 S544 372 704 494 S904 648 1186 560"/>
+            <circle cx="28" cy="382" r="5"/>
+            <circle cx="370" cy="398" r="5"/>
+            <circle cx="690" cy="438" r="5"/>
+            <circle cx="978" cy="350" r="5"/>
+            <circle cx="1174" cy="450" r="5"/>
+            <circle cx="382" cy="528" r="5"/>
+            <circle cx="704" cy="494" r="5"/>
+            <circle cx="1010" cy="594" r="5"/>
+          </svg>
+        </div>
         <div class="phone-zone parallax" data-speed="-0.035" aria-label="Andromeda partner app preview">
           <div class="phone">
             <div class="screen">
