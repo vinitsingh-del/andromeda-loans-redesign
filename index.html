@@ -264,11 +264,11 @@
     .hero {
       position: relative;
       min-height: 760px;
-      padding: 72px clamp(28px, 5vw, 92px) 96px;
+      padding: 24px clamp(28px, 5vw, 92px) 76px;
       display: grid;
       grid-template-columns: minmax(360px, .88fr) minmax(420px, 1fr);
       gap: clamp(54px, 6vw, 96px);
-      align-items: center;
+      align-items: start;
       isolation: isolate;
     }
 
@@ -292,6 +292,7 @@
       content: "";
       border-radius: 50%;
       background: #dff8ff;
+      animation: ambientDrift 14s ease-in-out infinite;
     }
 
     .phone-zone {
@@ -328,11 +329,28 @@
     }
 
     .screen {
+      position: relative;
       height: 100%;
       overflow: hidden;
       border-radius: 34px;
       background: #f8fdff;
       border: 1px solid rgba(255, 255, 255, .25);
+    }
+
+    .app-screen {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateX(22px) scale(.985);
+      animation: appScreenCycle 12s ease-in-out infinite;
+    }
+
+    .app-screen:nth-child(2) {
+      animation-delay: 4s;
+    }
+
+    .app-screen:nth-child(3) {
+      animation-delay: 8s;
     }
 
     .screen-top {
@@ -442,6 +460,7 @@
       position: absolute;
       left: 50%;
       bottom: 26px;
+      z-index: 5;
       width: 176px;
       height: 50px;
       display: grid;
@@ -520,7 +539,7 @@
       flex-wrap: wrap;
       gap: 10px;
       justify-content: flex-start;
-      margin-bottom: 48px;
+      margin-bottom: 24px;
     }
 
     .eyebrow {
@@ -747,6 +766,24 @@
     .why-circle > div {
       position: relative;
       z-index: 1;
+    }
+
+    .why-visual {
+      display: block;
+      width: 86px;
+      aspect-ratio: 1;
+      margin: 0 auto 10px;
+      overflow: hidden;
+      border-radius: 50%;
+      border: 1px solid rgba(3, 193, 243, .28);
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(0, 73, 136, .12);
+    }
+
+    .why-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .why-circle b {
@@ -2184,6 +2221,21 @@
       45%, 55% { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0, 141, 207, .16); }
     }
 
+    @keyframes appScreenCycle {
+      0%, 5% {
+        opacity: 0;
+        transform: translateX(22px) scale(.985);
+      }
+      10%, 30% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+      35%, 100% {
+        opacity: 0;
+        transform: translateX(-22px) scale(.985);
+      }
+    }
+
     @keyframes bubbleFloat {
       0%, 100% { translate: 0 0; }
       50% { translate: 0 -9px; }
@@ -2384,7 +2436,7 @@
       }
 
       .nav {
-        min-height: 72px;
+        min-height: 62px;
       }
 
       .logo {
@@ -2397,8 +2449,8 @@
 
       .hero {
         min-height: auto;
-        padding: 28px 16px 50px;
-        gap: 10px;
+        padding: 0 16px 4px;
+        gap: 4px;
       }
 
       h1 {
@@ -2416,8 +2468,8 @@
       }
 
       .store-row {
-        margin-bottom: 24px;
-        gap: 10px;
+        margin-bottom: 14px;
+        gap: 8px;
       }
 
       .app-store {
@@ -2426,15 +2478,15 @@
       }
 
       .phone-zone {
-        min-height: 470px;
+        min-height: 452px;
         border-radius: 24px;
       }
 
       .phone {
         left: 50%;
-        top: 25px;
-        width: 184px;
-        height: 389px;
+        top: 18px;
+        width: 202px;
+        height: 428px;
         transform: translateX(-50%) rotate(0deg);
       }
 
@@ -2452,18 +2504,18 @@
       }
 
       .bubble.one {
-        left: 58px;
-        top: 94px;
+        left: 48px;
+        top: 96px;
       }
 
       .bubble.two {
-        left: 166px;
-        top: 182px;
+        left: 176px;
+        top: 190px;
       }
 
       .bubble.three {
-        left: 61px;
-        top: 313px;
+        left: 50px;
+        top: 330px;
       }
 
       .testimonial-viewport {
@@ -2491,16 +2543,17 @@
       }
 
       .why-orbits {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         align-items: center;
-        gap: 14px;
+        gap: 8px;
         min-height: 0;
-        margin-top: 24px;
+        margin-top: 20px;
       }
 
       .why-circle {
-        width: min(250px, 76vw);
-        height: min(250px, 76vw);
+        width: 112px;
+        height: 112px;
+        padding: 10px 6px;
       }
 
       .why-circle:not(:first-child) {
@@ -2508,13 +2561,30 @@
       }
 
       .why-circle h3 {
-        font-size: 20px;
+        font-size: 12px;
+        margin-bottom: 0;
       }
 
       .why-circle p {
-        max-width: 190px;
-        font-size: 12px;
-        line-height: 1.35;
+        display: none;
+      }
+
+      .why-circle b {
+        display: none;
+      }
+
+      .why-circle::before {
+        inset: 7px;
+      }
+
+      .why-circle::after {
+        width: 78px;
+        height: 40px;
+      }
+
+      .why-visual {
+        width: 54px;
+        margin-bottom: 6px;
       }
 
       .section,
@@ -2909,6 +2979,8 @@
 
       .phone,
       .download-phone,
+      .app-screen,
+      .hero::after,
       .screen-tabs span,
       .loan-row,
       .ambient-bg span,
@@ -2974,6 +3046,7 @@
         <div class="phone-zone parallax" data-speed="-0.035" aria-label="Andromeda partner app preview">
           <div class="phone">
             <div class="screen">
+              <div class="app-screen">
               <div class="screen-top">
                 <img class="screen-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTk2IiBoZWlnaHQ9IjM0IiB2aWV3Qm94PSIwIDAgMTk2IDM0Ij4KICA8ZGVmcz4KICAgIDxjbGlwUGF0aCBpZD0iY2xpcC1wYXRoIj4KICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZV8yNDQ4NyIgZGF0YS1uYW1lPSJSZWN0YW5nbGUgMjQ0ODciIHdpZHRoPSIxOTYiIGhlaWdodD0iMzQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTMwMyAtMTE3ODMpIiBmaWxsPSIjZmZmIi8+CiAgICA8L2NsaXBQYXRoPgogIDwvZGVmcz4KICA8ZyBpZD0iTWFza19Hcm91cF8xNjgiIGRhdGEtbmFtZT0iTWFzayBHcm91cCAxNjgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5MzAzIDExNzgzKSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXAtcGF0aCkiPgogICAgPGcgaWQ9ImxvZ28iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTMwMy40MzkgLTExNzg5LjY4OSkiPgogICAgICA8ZyBpZD0iR3JvdXBfMTIxOTgyIiBkYXRhLW5hbWU9Ikdyb3VwIDEyMTk4MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC40NCA4LjM1KSI+CiAgICAgICAgPHBhdGggaWQ9IlBhdGhfMTk3NjYxIiBkYXRhLW5hbWU9IlBhdGggMTk3NjYxIiBkPSJNMTkuMzM2LDIxLjc0bC0zLjU4Mi0xMC4xTC40NCw0MC42NCwxNC42MTIsMjAuMTEyWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNDQgLTEwLjQyOCkiIGZpbGw9IiMwM2MxZjMiLz4KICAgICAgICA8cGF0aCBpZD0iUGF0aF8xOTc2NjIiIGRhdGEtbmFtZT0iUGF0aCAxOTc2NjIiIGQ9Ik0xMC42MzIsNjUuNTksNC4xOCw3NS4xMzhsMzAuMzY3LjA4NUwxMS44MDgsNzEuMjc2WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIuODAyIC00NC40OTgpIiBmaWxsPSIjMDA0OTg4Ii8+CiAgICAgICAgPHBhdGggaWQ9IlBhdGhfMTk3NjYzIiBkYXRhLW5hbWU9IlBhdGggMTk3NjYzIiBkPSJNNTAuMTQ2LDM1Ljg2NSw2MC43OCwzNy4xODgsNDUuNzIsOC4zNWw4LDI0LjAyMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yOS4wMzUgLTguMzUpIiBmaWxsPSIjMDA4ZGNmIi8+CiAgICAgICAgPHRleHQgaWQ9IkFORFJPTUVEQSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYuNDI3IDE2LjMzOSkiIGZpbGw9IiMwMDQ5ODgiIGZvbnQtc2l6ZT0iMjEiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGxldHRlci1zcGFjaW5nPSIwLjA4ZW0iPjx0c3BhbiB4PSIwIiB5PSIwIj5BTkRST01FPC90c3Bhbj48dHNwYW4geT0iMCIgbGV0dGVyLXNwYWNpbmc9IjAuMDdlbSI+RDwvdHNwYW4+PHRzcGFuIHk9IjAiPkE8L3RzcGFuPjwvdGV4dD4KICAgICAgICA8dGV4dCBpZD0iSU5ESUFfU19MQVJHRVNUX0xPQU5fRElTVFJJQlVUT1IiIGRhdGEtbmFtZT0iSU5ESUHigJlTIExBUkdFU1QgTE9BTiBESVNUUklCVVRPUiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgMjkpIiBmaWxsPSIjMDNjMWYzIiBmb250LXNpemU9IjguMyIgZm9udC1mYW1pbHk9Ik5vdG9TYW5zLVJlZ3VsYXIsIE5vdG8gU2FucyIgbGV0dGVyLXNwYWNpbmc9IjAuMDI1ZW0iPjx0c3BhbiB4PSIwIiB5PSIwIj5JTkRJQeKAmVMgTEFSR0VTVCBMT0FOIERJU1RSSUJVVE9SPC90c3Bhbj48L3RleHQ+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Andromeda Loans">
                 <div class="screen-tabs"><span>Today</span><span>Files</span><span>Payout</span></div>
@@ -2988,6 +3061,39 @@
                 <div class="loan-row"><span><b>Business Loan</b><span>Documents pending</span><span class="loan-progress"><i style="--w:64%"></i></span></span><strong>64%</strong></div>
                 <div class="loan-row"><span><b>LAP</b><span>Lender review</span><span class="loan-progress"><i style="--w:52%"></i></span></span><strong>52%</strong></div>
                 <div class="loan-row"><span><b>Personal Loan</b><span>Offer matched</span><span class="loan-progress"><i style="--w:90%"></i></span></span><strong>90%</strong></div>
+              </div>
+              </div>
+              <div class="app-screen">
+                <div class="screen-top">
+                  <img class="screen-logo" src="brand-assets/andromeda-logo-new.svg" alt="Andromeda Loans">
+                  <div class="screen-tabs"><span>Due</span><span>Docs</span><span>Calls</span></div>
+                  <p style="margin:0;color:rgba(255,255,255,.78);font-size:13px;font-weight:800">Reminder queue for files, lender calls, and customer documents.</p>
+                </div>
+                <div class="app-stat-card">
+                  <span>Pending today</span>
+                  <strong>18 tasks</strong>
+                </div>
+                <div class="loan-list">
+                  <div class="loan-row"><span><b>EMI reminder</b><span>Customer follow-up</span><span class="loan-progress"><i style="--w:74%"></i></span></span><strong>9 AM</strong></div>
+                  <div class="loan-row"><span><b>KYC documents</b><span>Upload pending</span><span class="loan-progress"><i style="--w:48%"></i></span></span><strong>4</strong></div>
+                  <div class="loan-row"><span><b>Lender call</b><span>Sanction update</span><span class="loan-progress"><i style="--w:68%"></i></span></span><strong>2 PM</strong></div>
+                </div>
+              </div>
+              <div class="app-screen">
+                <div class="screen-top">
+                  <img class="screen-logo" src="brand-assets/andromeda-logo-new.svg" alt="Andromeda Loans">
+                  <div class="screen-tabs"><span>Home</span><span>Biz</span><span>LAP</span></div>
+                  <p style="margin:0;color:rgba(255,255,255,.78);font-size:13px;font-weight:800">Match borrowers to the right loan product and lender path.</p>
+                </div>
+                <div class="app-stat-card">
+                  <span>Matched products</span>
+                  <strong>5 live</strong>
+                </div>
+                <div class="loan-list">
+                  <div class="loan-row"><span><b>Home Loan</b><span>Best lender fit</span><span class="loan-progress"><i style="--w:86%"></i></span></span><strong>86%</strong></div>
+                  <div class="loan-row"><span><b>Business Loan</b><span>Cashflow eligible</span><span class="loan-progress"><i style="--w:71%"></i></span></span><strong>71%</strong></div>
+                  <div class="loan-row"><span><b>Credit Card</b><span>Pre-approved lead</span><span class="loan-progress"><i style="--w:92%"></i></span></span><strong>92%</strong></div>
+                </div>
               </div>
               <div class="screen-nav"><span>HOME</span><span>FILES</span><span>ADD</span></div>
             </div>
@@ -3022,9 +3128,9 @@
           <p>A simpler way for financial advisors to serve more borrowers, compare lender options, and track work without operational clutter.</p>
         </div>
         <div class="why-orbits">
-          <article class="why-circle"><div><b>01</b><h3>Easy to use</h3><p>Add customer requirements, files, and status updates without switching tools.</p></div></article>
-          <article class="why-circle"><div><b>02</b><h3>Smart reminders</h3><p>Stay ahead of document gaps, lender follow-ups, and customer conversations.</p></div></article>
-          <article class="why-circle"><div><b>03</b><h3>Multiple products</h3><p>Serve home loan, business loan, LAP, personal loan, and card customers.</p></div></article>
+          <article class="why-circle"><div><b>01</b><span class="why-visual"><img src="brand-assets/why-app-easy.png" alt=""></span><h3>Easy to use</h3><p>Add customer requirements, files, and status updates without switching tools.</p></div></article>
+          <article class="why-circle"><div><b>02</b><span class="why-visual"><img src="brand-assets/why-app-reminders.png" alt=""></span><h3>Smart reminders</h3><p>Stay ahead of document gaps, lender follow-ups, and customer conversations.</p></div></article>
+          <article class="why-circle"><div><b>03</b><span class="why-visual"><img src="brand-assets/why-app-products.png" alt=""></span><h3>Multiple products</h3><p>Serve home loan, business loan, LAP, personal loan, and card customers.</p></div></article>
         </div>
       </section>
 
@@ -3306,6 +3412,7 @@
     });
 
     document.querySelectorAll(".hero .screen .loan-row strong").forEach((target) => {
+      if (!target.textContent.includes("%")) return;
       const value = Number(target.textContent.replace(/[^0-9.]/g, ""));
       if (!value) return;
       target.classList.add("count-number");
