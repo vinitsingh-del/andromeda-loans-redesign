@@ -270,33 +270,63 @@
       gap: clamp(54px, 6vw, 96px);
       align-items: start;
       isolation: isolate;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 24% 36%, rgba(3, 193, 243, .2), transparent 28%),
+        radial-gradient(ellipse at 72% 48%, rgba(0, 141, 207, .18), transparent 30%),
+        linear-gradient(135deg, #020b1a 0%, #061a32 34%, #004988 100%);
     }
 
     .hero::before {
       position: absolute;
-      inset: 0;
-      z-index: -2;
+      inset: -32%;
+      z-index: 0;
       content: "";
+      pointer-events: none;
       background:
-        radial-gradient(circle at 31% 51%, rgba(3, 193, 243, .16), transparent 26%),
-        radial-gradient(circle at 77% 23%, rgba(0, 141, 207, .12), transparent 22%);
+        radial-gradient(ellipse at 48% 50%, rgba(255,255,255,.9) 0 1px, transparent 2px),
+        radial-gradient(ellipse at 58% 46%, rgba(3,193,243,.58), transparent 7%),
+        radial-gradient(ellipse at 48% 50%, rgba(255,255,255,.36), transparent 10%),
+        radial-gradient(ellipse at 46% 52%, rgba(3,193,243,.3), transparent 20%),
+        radial-gradient(ellipse at 52% 48%, rgba(0,141,207,.28), transparent 32%),
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.75) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 32% 72%, rgba(255,255,255,.58) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 78% 28%, rgba(255,255,255,.72) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 86% 74%, rgba(255,255,255,.52) 0 1px, transparent 1.8px),
+        conic-gradient(from 22deg at 50% 50%, transparent 0deg, rgba(3,193,243,.18) 54deg, rgba(255,255,255,.22) 68deg, rgba(0,73,136,.12) 84deg, transparent 122deg, transparent 360deg);
+      filter: blur(.2px) saturate(1.25);
+      opacity: .95;
+      transform-origin: 50% 50%;
+      animation: galaxyDrift 22s ease-in-out infinite;
     }
 
     .hero::after {
       position: absolute;
-      right: -150px;
-      top: -150px;
-      z-index: -1;
-      width: 420px;
-      height: 420px;
+      inset: -24%;
+      z-index: 0;
+      width: auto;
+      height: auto;
       content: "";
-      border-radius: 50%;
-      background: #dff8ff;
-      animation: ambientDrift 14s ease-in-out infinite;
+      pointer-events: none;
+      border-radius: 0;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255,255,255,.9) 0 1px, transparent 2px),
+        radial-gradient(circle at 20% 66%, rgba(3,193,243,.65) 0 1px, transparent 2px),
+        radial-gradient(circle at 42% 24%, rgba(255,255,255,.86) 0 1px, transparent 2px),
+        radial-gradient(circle at 58% 82%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 74% 36%, rgba(3,193,243,.72) 0 1px, transparent 2px),
+        radial-gradient(circle at 88% 62%, rgba(255,255,255,.78) 0 1px, transparent 2px),
+        radial-gradient(ellipse at 58% 42%, rgba(255,255,255,.18), transparent 26%),
+        radial-gradient(ellipse at 26% 70%, rgba(3,193,243,.16), transparent 30%);
+      background-size: 360px 360px, 440px 440px, 520px 520px, 400px 400px, 480px 480px, 560px 560px, 100% 100%, 100% 100%;
+      opacity: .72;
+      mix-blend-mode: screen;
+      animation: starfieldPan 18s linear infinite;
     }
 
     .phone-zone {
       position: relative;
+      z-index: 1;
       min-height: 650px;
       overflow: visible;
       border-radius: 32px;
@@ -568,7 +598,21 @@
 
     .hero-copy {
       position: relative;
-      z-index: 2;
+      z-index: 1;
+    }
+
+    .hero .eyebrow,
+    .hero h1,
+    .hero .hero-copy p,
+    .hero .rating,
+    .hero .rating strong {
+      color: #fff;
+      text-shadow: 0 10px 28px rgba(0, 12, 28, .28);
+    }
+
+    .hero .hero-copy p,
+    .hero .rating span:last-child {
+      color: rgba(255,255,255,.78);
     }
 
     .store-row {
@@ -2247,6 +2291,28 @@
       50% { transform: translate3d(32px, -24px, 0) rotate(10deg) scale(1.08); }
     }
 
+    @keyframes galaxyDrift {
+      0%, 100% {
+        transform: translate3d(-2%, 1%, 0) rotate(-7deg) scale(1);
+        filter: blur(.2px) saturate(1.2) brightness(1);
+      }
+      50% {
+        transform: translate3d(3%, -2%, 0) rotate(11deg) scale(1.08);
+        filter: blur(.2px) saturate(1.45) brightness(1.12);
+      }
+    }
+
+    @keyframes starfieldPan {
+      0% {
+        background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, center, center;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      100% {
+        background-position: 360px 180px, -440px 220px, 260px -520px, -180px -400px, 480px 120px, -560px 280px, center, center;
+        transform: translate3d(-2%, 1%, 0) scale(1.04);
+      }
+    }
+
     @keyframes appTabPulse {
       0%, 100% { background: rgba(255, 255, 255, .18); transform: translateY(0); }
       16% { background: rgba(255, 255, 255, .34); transform: translateY(-2px); }
@@ -3030,6 +3096,7 @@
       .phone,
       .download-phone,
       .app-screen,
+      .hero::before,
       .hero::after,
       .screen-tabs span,
       .loan-row,
