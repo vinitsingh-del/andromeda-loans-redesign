@@ -2119,10 +2119,16 @@
     }
 
     @media (max-width: 640px) {
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
       .page-shell {
-        width: 100%;
+        width: 111.111%;
         margin: 0;
         border-radius: 0;
+        zoom: .9;
       }
 
       .nav {
