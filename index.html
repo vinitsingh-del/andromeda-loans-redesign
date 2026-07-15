@@ -353,6 +353,43 @@
       animation-delay: 8s;
     }
 
+    .app-screen-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+
+    .screen-metric {
+      position: absolute;
+      z-index: 3;
+      min-width: 44px;
+      padding: 6px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(3, 193, 243, .32);
+      color: var(--navy);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 10px 28px rgba(0, 73, 136, .16), 0 0 0 4px rgba(3, 193, 243, .08);
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      animation: metricPulse 2.4s ease-in-out infinite;
+    }
+
+    .screen-metric.small {
+      min-width: 34px;
+      padding: 5px 7px;
+      font-size: 12px;
+    }
+
+    .screen-metric.wide {
+      min-width: 86px;
+      font-size: 11px;
+    }
+
     .screen-top {
       padding: 44px 18px 18px;
       color: #fff;
@@ -2236,6 +2273,19 @@
       }
     }
 
+    @keyframes metricPulse {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 10px 28px rgba(0, 73, 136, .16), 0 0 0 4px rgba(3, 193, 243, .08);
+        filter: brightness(1);
+      }
+      50% {
+        transform: translateY(-2px) scale(1.06);
+        box-shadow: 0 14px 34px rgba(3, 193, 243, .32), 0 0 0 7px rgba(3, 193, 243, .13);
+        filter: brightness(1.08);
+      }
+    }
+
     @keyframes bubbleFloat {
       0%, 100% { translate: 0 0; }
       50% { translate: 0 -9px; }
@@ -2983,6 +3033,7 @@
       .hero::after,
       .screen-tabs span,
       .loan-row,
+      .screen-metric,
       .ambient-bg span,
       .bubble,
       .btn-primary,
@@ -3046,56 +3097,25 @@
         <div class="phone-zone parallax" data-speed="-0.035" aria-label="Andromeda partner app preview">
           <div class="phone">
             <div class="screen">
-              <div class="app-screen">
-              <div class="screen-top">
-                <img class="screen-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTk2IiBoZWlnaHQ9IjM0IiB2aWV3Qm94PSIwIDAgMTk2IDM0Ij4KICA8ZGVmcz4KICAgIDxjbGlwUGF0aCBpZD0iY2xpcC1wYXRoIj4KICAgICAgPHJlY3QgaWQ9IlJlY3RhbmdsZV8yNDQ4NyIgZGF0YS1uYW1lPSJSZWN0YW5nbGUgMjQ0ODciIHdpZHRoPSIxOTYiIGhlaWdodD0iMzQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTMwMyAtMTE3ODMpIiBmaWxsPSIjZmZmIi8+CiAgICA8L2NsaXBQYXRoPgogIDwvZGVmcz4KICA8ZyBpZD0iTWFza19Hcm91cF8xNjgiIGRhdGEtbmFtZT0iTWFzayBHcm91cCAxNjgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5MzAzIDExNzgzKSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXAtcGF0aCkiPgogICAgPGcgaWQ9ImxvZ28iIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xOTMwMy40MzkgLTExNzg5LjY4OSkiPgogICAgICA8ZyBpZD0iR3JvdXBfMTIxOTgyIiBkYXRhLW5hbWU9Ikdyb3VwIDEyMTk4MiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC40NCA4LjM1KSI+CiAgICAgICAgPHBhdGggaWQ9IlBhdGhfMTk3NjYxIiBkYXRhLW5hbWU9IlBhdGggMTk3NjYxIiBkPSJNMTkuMzM2LDIxLjc0bC0zLjU4Mi0xMC4xTC40NCw0MC42NCwxNC42MTIsMjAuMTEyWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNDQgLTEwLjQyOCkiIGZpbGw9IiMwM2MxZjMiLz4KICAgICAgICA8cGF0aCBpZD0iUGF0aF8xOTc2NjIiIGRhdGEtbmFtZT0iUGF0aCAxOTc2NjIiIGQ9Ik0xMC42MzIsNjUuNTksNC4xOCw3NS4xMzhsMzAuMzY3LjA4NUwxMS44MDgsNzEuMjc2WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIuODAyIC00NC40OTgpIiBmaWxsPSIjMDA0OTg4Ii8+CiAgICAgICAgPHBhdGggaWQ9IlBhdGhfMTk3NjYzIiBkYXRhLW5hbWU9IlBhdGggMTk3NjYzIiBkPSJNNTAuMTQ2LDM1Ljg2NSw2MC43OCwzNy4xODgsNDUuNzIsOC4zNWw4LDI0LjAyMloiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yOS4wMzUgLTguMzUpIiBmaWxsPSIjMDA4ZGNmIi8+CiAgICAgICAgPHRleHQgaWQ9IkFORFJPTUVEQSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYuNDI3IDE2LjMzOSkiIGZpbGw9IiMwMDQ5ODgiIGZvbnQtc2l6ZT0iMjEiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGxldHRlci1zcGFjaW5nPSIwLjA4ZW0iPjx0c3BhbiB4PSIwIiB5PSIwIj5BTkRST01FPC90c3Bhbj48dHNwYW4geT0iMCIgbGV0dGVyLXNwYWNpbmc9IjAuMDdlbSI+RDwvdHNwYW4+PHRzcGFuIHk9IjAiPkE8L3RzcGFuPjwvdGV4dD4KICAgICAgICA8dGV4dCBpZD0iSU5ESUFfU19MQVJHRVNUX0xPQU5fRElTVFJJQlVUT1IiIGRhdGEtbmFtZT0iSU5ESUHigJlTIExBUkdFU1QgTE9BTiBESVNUUklCVVRPUiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzYgMjkpIiBmaWxsPSIjMDNjMWYzIiBmb250LXNpemU9IjguMyIgZm9udC1mYW1pbHk9Ik5vdG9TYW5zLVJlZ3VsYXIsIE5vdG8gU2FucyIgbGV0dGVyLXNwYWNpbmc9IjAuMDI1ZW0iPjx0c3BhbiB4PSIwIiB5PSIwIj5JTkRJQeKAmVMgTEFSR0VTVCBMT0FOIERJU1RSSUJVVE9SPC90c3Bhbj48L3RleHQ+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=" alt="Andromeda Loans">
-                <div class="screen-tabs"><span>Today</span><span>Files</span><span>Payout</span></div>
-                <p style="margin:0;color:rgba(255,255,255,.78);font-size:13px;font-weight:800">Track lender movement, pending tasks, and partner income.</p>
+              <div class="app-screen app-crop-screen">
+                <img class="app-screen-img" src="brand-assets/hero-app-leads.png" alt="Andromeda app leads dashboard">
+                <span class="screen-metric" style="right:8%;top:24%" data-count="45">45</span>
+                <span class="screen-metric small" style="left:10%;top:36%" data-count="2" data-pad="2">02</span>
+                <span class="screen-metric small" style="right:43%;top:36%" data-count="10">10</span>
+                <span class="screen-metric small" style="right:9%;top:72%" data-count="1" data-pad="2">01</span>
               </div>
-              <div class="app-stat-card">
-                <span>Expected payout</span>
-                <strong>INR 2.84L</strong>
+              <div class="app-screen app-crop-screen">
+                <img class="app-screen-img" src="brand-assets/hero-app-selected-lenders.png" alt="Andromeda selected lenders screen">
+                <span class="screen-metric wide" style="left:7%;bottom:7%" data-count="4" data-suffix=" Selected">4 Selected</span>
+                <span class="screen-metric small" style="right:9%;top:28%" data-count="5">5</span>
+                <span class="screen-metric small" style="right:9%;top:57%" data-count="8.9" data-suffix="%">8.9%</span>
               </div>
-              <div class="loan-list">
-                <div class="loan-row"><span><b>Home Loan</b><span>Ready for sanction</span><span class="loan-progress"><i style="--w:82%"></i></span></span><strong>82%</strong></div>
-                <div class="loan-row"><span><b>Business Loan</b><span>Documents pending</span><span class="loan-progress"><i style="--w:64%"></i></span></span><strong>64%</strong></div>
-                <div class="loan-row"><span><b>LAP</b><span>Lender review</span><span class="loan-progress"><i style="--w:52%"></i></span></span><strong>52%</strong></div>
-                <div class="loan-row"><span><b>Personal Loan</b><span>Offer matched</span><span class="loan-progress"><i style="--w:90%"></i></span></span><strong>90%</strong></div>
+              <div class="app-screen app-crop-screen">
+                <img class="app-screen-img" src="brand-assets/hero-app-all-lenders.png" alt="Andromeda all lenders network screen">
+                <span class="screen-metric wide" style="left:8%;top:45%" data-count="172" data-suffix=" lenders">172 lenders</span>
+                <span class="screen-metric small" style="right:10%;top:47%" data-count="8.9" data-suffix="%">8.9%</span>
+                <span class="screen-metric small" style="right:10%;top:69%" data-count="8.9" data-suffix="%">8.9%</span>
               </div>
-              </div>
-              <div class="app-screen">
-                <div class="screen-top">
-                  <img class="screen-logo" src="brand-assets/andromeda-logo-new.svg" alt="Andromeda Loans">
-                  <div class="screen-tabs"><span>Due</span><span>Docs</span><span>Calls</span></div>
-                  <p style="margin:0;color:rgba(255,255,255,.78);font-size:13px;font-weight:800">Reminder queue for files, lender calls, and customer documents.</p>
-                </div>
-                <div class="app-stat-card">
-                  <span>Pending today</span>
-                  <strong>18 tasks</strong>
-                </div>
-                <div class="loan-list">
-                  <div class="loan-row"><span><b>EMI reminder</b><span>Customer follow-up</span><span class="loan-progress"><i style="--w:74%"></i></span></span><strong>9 AM</strong></div>
-                  <div class="loan-row"><span><b>KYC documents</b><span>Upload pending</span><span class="loan-progress"><i style="--w:48%"></i></span></span><strong>4</strong></div>
-                  <div class="loan-row"><span><b>Lender call</b><span>Sanction update</span><span class="loan-progress"><i style="--w:68%"></i></span></span><strong>2 PM</strong></div>
-                </div>
-              </div>
-              <div class="app-screen">
-                <div class="screen-top">
-                  <img class="screen-logo" src="brand-assets/andromeda-logo-new.svg" alt="Andromeda Loans">
-                  <div class="screen-tabs"><span>Home</span><span>Biz</span><span>LAP</span></div>
-                  <p style="margin:0;color:rgba(255,255,255,.78);font-size:13px;font-weight:800">Match borrowers to the right loan product and lender path.</p>
-                </div>
-                <div class="app-stat-card">
-                  <span>Matched products</span>
-                  <strong>5 live</strong>
-                </div>
-                <div class="loan-list">
-                  <div class="loan-row"><span><b>Home Loan</b><span>Best lender fit</span><span class="loan-progress"><i style="--w:86%"></i></span></span><strong>86%</strong></div>
-                  <div class="loan-row"><span><b>Business Loan</b><span>Cashflow eligible</span><span class="loan-progress"><i style="--w:71%"></i></span></span><strong>71%</strong></div>
-                  <div class="loan-row"><span><b>Credit Card</b><span>Pre-approved lead</span><span class="loan-progress"><i style="--w:92%"></i></span></span><strong>92%</strong></div>
-                </div>
-              </div>
-              <div class="screen-nav"><span>HOME</span><span>FILES</span><span>ADD</span></div>
             </div>
           </div>
           <span class="bubble one parallax" data-speed="0.045">1500+ cities</span>
@@ -3436,6 +3456,20 @@
         element: target,
         value,
         format: (count) => `${prefix}${count.toFixed(decimals).replace(/\.0$/, "")}${suffix}`
+      });
+    });
+
+    document.querySelectorAll(".screen-metric[data-count]").forEach((target) => {
+      const value = Number(target.dataset.count);
+      if (Number.isNaN(value)) return;
+      const suffix = target.dataset.suffix || "";
+      const decimals = String(value).includes(".") ? 1 : 0;
+      const pad = Number(target.dataset.pad || 0);
+      target.classList.add("count-number");
+      counterConfigs.push({
+        element: target,
+        value,
+        format: (count) => `${String(count.toFixed(decimals).replace(/\\.0$/, "")).padStart(pad, "0")}${suffix}`
       });
     });
 
